@@ -15,6 +15,7 @@ import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.AbstractIOIOActivity;
 import android.os.Bundle;
 //import android.util.Log;
+import android.util.Log;
 import android.widget.ToggleButton;
 
 /**
@@ -71,14 +72,14 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
     		uart_2 = ioio_.openUart(IOIO.INVALID_PIN, PIN_SERCON_TX, 9600, Uart.Parity.NONE, Uart.StopBits.ONE);
     		scon = uart_2.getOutputStream();
     		
-    		try {
-				scon.write( new String("Hello, I'm VIFAM...OK VIFAM, Your number is 7.").getBytes() );
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-			}
-			sendMIDImsg(0x90, 90, 127);	// note on
-			//sendMIDImsg(0x80, 90, 127);	// note off
+//    		try {
+//				scon.write( new String("Hello, I'm VIFAM...OK VIFAM, Your number is 7.").getBytes() );
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				//e.printStackTrace();
+//			}
+//			sendMIDImsg(0x90, 90, 127);	// note on
+//			//sendMIDImsg(0x80, 90, 127);	// note off
 		}
 
 		/**
@@ -96,6 +97,17 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 				sleep(10);
 			} catch (InterruptedException e) {
 			}
+			
+    		try {
+				scon.write( new String("Hello, I'm VIFAM...OK VIFAM, Your number is 7.").getBytes() );
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			}
+			sendMIDImsg(0x90, 90, 127);	// note on
+			delay(500);
+			sendMIDImsg(0x80, 90, 127);	// note off
+			delay(500);
 		}
 		
 		private void serOut(int i) {
@@ -105,7 +117,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 				} catch (IOException e) {
 					//Log.d(TAG, "IOException in serOut()");
 				} catch (Exception e) {
-					//Log.d(TAG, "Something weird occcurred in serOut()");
+					//Log.d(TAG, "Something weird occurred in serOut()");
 				}
 			}
 		}
@@ -115,6 +127,17 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 			serOut(data1);
 			serOut(data2);
 		}
+		
+		private void delay(int wait) {
+			try {
+				Thread.sleep(wait);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				//Log.d(TAG, "InterruptedException in delay()");
+			}			
+		}
+
 				
 	}
 
