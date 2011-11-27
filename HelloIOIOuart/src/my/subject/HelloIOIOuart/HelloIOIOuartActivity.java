@@ -15,7 +15,6 @@ import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.AbstractIOIOActivity;
 import android.os.Bundle;
 //import android.util.Log;
-import android.util.Log;
 import android.widget.ToggleButton;
 
 /**
@@ -28,6 +27,7 @@ import android.widget.ToggleButton;
  */
 public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 	private ToggleButton button_;
+	private final String Str = "Hello, I'm VIFAM...OK VIFAM, Your number is 7.";
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -99,7 +99,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 			}
 			
     		try {
-				scon.write( new String("Hello, I'm VIFAM...OK VIFAM, Your number is 7.").getBytes() );
+				scon.write( Str.getBytes() );
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
