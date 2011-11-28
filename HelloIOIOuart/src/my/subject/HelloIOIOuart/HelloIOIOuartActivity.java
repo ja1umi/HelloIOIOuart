@@ -48,7 +48,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 	 * be called repetitively until the IOIO gets disconnected.
 	 */
 	class IOIOThread extends AbstractIOIOActivity.IOIOThread {
-		private static final int PIN_TX = 31;
+		private static final int PIN_TX = 14;		// it should be 5V tolerant
 		private static final int PIN_SERCON_TX = 39;
 		/** The on-board LED. */
 		private DigitalOutput led_;
@@ -66,7 +66,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 		 */
 		@Override
 		protected void setup() throws ConnectionLostException {
-			led_ = ioio_.openDigitalOutput(0, true);
+			led_ = ioio_.openDigitalOutput(IOIO.LED_PIN, true);
     		uart_1 = ioio_.openUart(new DigitalInput.Spec(IOIO.INVALID_PIN, DigitalInput.Spec.Mode.FLOATING), new DigitalOutput.Spec(PIN_TX, DigitalOutput.Spec.Mode.OPEN_DRAIN), 31250, Uart.Parity.NONE, Uart.StopBits.ONE);
     		out = uart_1.getOutputStream();
     		uart_2 = ioio_.openUart(IOIO.INVALID_PIN, PIN_SERCON_TX, 9600, Uart.Parity.NONE, Uart.StopBits.ONE);
