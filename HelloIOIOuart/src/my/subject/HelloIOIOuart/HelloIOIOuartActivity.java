@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import my.subject.HelloIOIOuart.R;
-import ioio.lib.api.DigitalInput;
+//import ioio.lib.api.DigitalInput;
 import ioio.lib.api.IOIO;
 import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.Uart;
@@ -27,7 +27,8 @@ import android.widget.ToggleButton;
  */
 public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 	private ToggleButton button_;
-	private final String Str = "Hello, I'm VIFAM...OK VIFAM, Your number is 7.";
+	private final String Str = "Hello, I'm VIFAM...OK VIFAM, Your number is 7.\n";
+	private final String Str2 = "\nWipe away all your tears. Together we will conquer fear!\n";
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -67,7 +68,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 		@Override
 		protected void setup() throws ConnectionLostException {
 			led_ = ioio_.openDigitalOutput(IOIO.LED_PIN, true);
-    		uart_1 = ioio_.openUart(new DigitalInput.Spec(IOIO.INVALID_PIN, DigitalInput.Spec.Mode.FLOATING), new DigitalOutput.Spec(PIN_TX, DigitalOutput.Spec.Mode.OPEN_DRAIN), 31250, Uart.Parity.NONE, Uart.StopBits.ONE);
+    		uart_1 = ioio_.openUart(null, new DigitalOutput.Spec(PIN_TX, DigitalOutput.Spec.Mode.OPEN_DRAIN), 31250, Uart.Parity.NONE, Uart.StopBits.ONE);
     		out = uart_1.getOutputStream();
     		uart_2 = ioio_.openUart(IOIO.INVALID_PIN, PIN_SERCON_TX, 9600, Uart.Parity.NONE, Uart.StopBits.ONE);
     		scon = uart_2.getOutputStream();
@@ -100,6 +101,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 			
     		try {
 				scon.write( Str.getBytes() );
+				out.write( Str2.getBytes() );
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
