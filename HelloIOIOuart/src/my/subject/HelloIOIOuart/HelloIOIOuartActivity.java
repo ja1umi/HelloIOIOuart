@@ -101,7 +101,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 			
     		try {
 				scon.write( Str.getBytes() );
-				out.write( Str2.getBytes() );
+				//out.write( Str2.getBytes() );
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
