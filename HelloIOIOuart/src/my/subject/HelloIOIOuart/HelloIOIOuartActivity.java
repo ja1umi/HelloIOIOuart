@@ -30,6 +30,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 	private final String Str = "Hello, I'm VIFAM...OK VIFAM, Your number is 7.\n";
 //	private final String Str2 = "\nWipe away all your tears. Together we will conquer fear!\n";
 	private final String msg = "IOIO meets MIDI.";
+	private int bitmap[] = {0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08};		// "7"
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -88,7 +89,7 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 //
     		initSoundModule();
 			displayMessage(msg);
-
+			displayDots(0);
 		}
 
 		/**
@@ -186,6 +187,28 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 			sendMIDImsg2(csum, 0xF7);
 			delay(50);
 		}
+		
+		protected void displayDots(int curPos) {
+			int csum, dat, b = 0, b1 = 0x10, b2 = 0, b3 = 0;
+			
+			vsendMIDImsg(0xF0, 0x41, 0x10, 0x45, 0x12, b1, b2, b3);
+			dat = 0;
+			for (int i = 1; i <=64; i++) {
+				if ( i < 8 )
+					b =  bitmap[i-1];
+				if ( ( i == 8) || ( i > 9) )
+					b = 0;
+				if ( i == 9 )
+					b = 0x20 >> (curPos+1);
+				serOut(b);
+				dat += b;  
+			}
+			  
+			csum = 128 - ((b1 + b2 + b3 + dat) & 0x7F);
+			sendMIDImsg2(csum, 0xF7);
+			delay(50);		
+		}
+
 
 				
 	} // end of class IOIOThread
