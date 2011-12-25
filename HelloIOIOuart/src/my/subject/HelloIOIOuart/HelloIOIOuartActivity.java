@@ -189,10 +189,10 @@ public class HelloIOIOuartActivity extends AbstractIOIOActivity {
 		}
 		
 		protected void displayDots(int curPos) {
-			int csum, dat, b = 0, b1 = 0x10, b2 = 0, b3 = 0;
+			int csum, dat, b, b1 = 0x10, b2 = 0x01, b3 = 0;
 			
 			vsendMIDImsg(0xF0, 0x41, 0x10, 0x45, 0x12, b1, b2, b3);
-			dat = 0;
+			dat = 0; b = 0;
 			for (int i = 1; i <=64; i++) {
 				if ( i < 8 )
 					b =  bitmap[i-1];
